@@ -16,22 +16,27 @@ const dtmfSpan = getSpan("dtmf");
 const holdCheckbox = getInput("hold");
 const muteCheckbox = getInput("mute");
 
-// WebSocket Server URL
-const serverDomainName = 'pbx.captain-eye.com';
-  const serverPort = '5160';
+// Local server
+// const serverPort = '8089';
+// const serverDomainName = 'pbx.example.com';
 // const webSocketServer = `wss://${serverDomainName}:${serverPort}/ws`;
+
+// // WebSocket Server URL
+// const serverDomainName = 'captain-eye.onsip.com';
+// const webSocketServer = `wss://edge.sip.onsip.com`;
+
+const serverDomainName = 'pbx-development.captain-eye.com';
 const webSocketServer = `wss://${serverDomainName}/ws`;
 serverSpan.innerHTML = webSocketServer;
 
-// User details
-const username = '6001';
-const password = '6001';
+const username = '4321';
+const password = '4321';
 const userAor = `sip:${username}@${serverDomainName}`;
 const userURI = UserAgent.makeURI(userAor);
-console.log("🚀 ~ file: demo-1.ts ~ line 31 ~ userURI", userURI)
+console.log("🚀 ~ file: demo-1.ts ~ line 31 ~ userURI", userURI);
 
 // Destination URI
-const targetUsername = '6002';
+const targetUsername = '1234';
 const target = `sip:${targetUsername}@${serverDomainName}`;
 targetSpan.innerHTML = target;
 
@@ -49,7 +54,7 @@ const simpleUserDelegate: SimpleUserDelegate = {
     muteCheckboxDisabled(true);
   },
   onCallAnswered: (): void => {
-    console.log(`[${displayName}] Call answered`);
+    alert(`[${displayName}] Call answered`);
     keypadDisabled(false);
     holdCheckboxDisabled(false);
     muteCheckboxDisabled(false);
@@ -76,7 +81,6 @@ const simpleUserDelegate: SimpleUserDelegate = {
     
   }
 };
-
 // SimpleUser options
 const simpleUserOptions: SimpleUserOptions = {
   delegate: simpleUserDelegate,
@@ -96,7 +100,6 @@ const simpleUserOptions: SimpleUserOptions = {
 // SimpleUser construction
 const simpleUser = new SimpleUser(webSocketServer, simpleUserOptions);
 console.log(simpleUser)
-simpleUser.register()
 simpleUser.connect().then(() => console.log("connected!"))
 
 // Add click listener to connect button
@@ -127,7 +130,7 @@ callButton.addEventListener("click", () => {
   hangupButton.disabled = true;
   simpleUser
     .call(target, {
-      inviteWithoutSdp: false
+      inviteWithoutSdp: false,
     })
     .catch((error: Error) => {
       console.error(`[${simpleUser.id}] failed to place call`);

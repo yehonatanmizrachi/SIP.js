@@ -25,18 +25,18 @@ const muteCheckbox = getInput("mute");
 // const serverDomainName = 'captain-eye.onsip.com';
 // const webSocketServer = `wss://edge.sip.onsip.com`;
 
-const serverDomainName = 'pbx-development.captain-eye.com';
+const serverDomainName = 'pbx.captain-eye.com';
 const webSocketServer = `wss://${serverDomainName}/ws`;
 serverSpan.innerHTML = webSocketServer;
 
-const username = '4321';
-const password = '4321';
+const username = 'fleet_2';
+const password = 'fleet_2';
 const userAor = `sip:${username}@${serverDomainName}`;
 const userURI = UserAgent.makeURI(userAor);
 console.log("🚀 ~ file: demo-1.ts ~ line 31 ~ userURI", userURI);
 
 // Destination URI
-const targetUsername = '1234';
+const targetUsername = 'fleet_1';
 const target = `sip:${targetUsername}@${serverDomainName}`;
 targetSpan.innerHTML = target;
 
